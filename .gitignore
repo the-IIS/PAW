@@ -1,0 +1,10 @@
+# file: ~/.gitignore_global
+
+.DS_Store
+.idea
+
+backend/.idea
+backend/spring-boot-trello/.idea
+backend/spring-boot-trello/target/*
+
+frontend/angular-trello/node_modules/*
