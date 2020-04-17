@@ -2,6 +2,7 @@ package com.paw.trello.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,4 +24,24 @@ public class CardList {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "list")
     private Set<Card> cards;
+
+    @ManyToOne
+    @JoinColumn(name = "ttable_id", nullable = false)
+    private TableList ttable;
+
+    public CardList() {
+    }
+
+    public CardList(String listName, TableList ttable) {
+
+        this.listName = listName;
+        this.ttable = ttable;
+    }
+
+    public CardList(Long id, String listName, TableList ttable) {
+
+        this.id = id;
+        this.listName = listName;
+        this.ttable = ttable;
+    }
 }

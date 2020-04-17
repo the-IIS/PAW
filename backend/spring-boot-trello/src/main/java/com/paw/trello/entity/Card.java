@@ -23,4 +23,22 @@ public class Card {
 
     @Column(name = "description")
     private String description;
+
+    public Card() {
+    }
+
+    public Card(String title, String description, CardList list) {
+
+        this.list = list;
+        this.title = title;
+        this.description = description;
+    }
+
+    public Card(Long id, String title, String description, CardList list) {
+
+        this.id = id;
+        this.list = list;
+        this.title = title;
+        this.description = description;
+    }
 }
