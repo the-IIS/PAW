@@ -7,9 +7,10 @@ import java.util.Set;
 
 @Entity
 @Table(name="table_list")
-// @Data -- known bug for one to many
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TableList {
 
     @Id
@@ -20,16 +21,9 @@ public class TableList {
     @Column(name = "table_name")
     private String tableName;
 
+    //@Getter(AccessLevel.NONE)     // jak NIE chcesz widzieć kaskadowo, to odkomentuj
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ttable")
     private Set<CardList> ttables;
-
-    public TableList() {
-    }
-
-    public TableList(String tableName) {
-
-        this.tableName = tableName;
-    }
 
     public TableList(Long id, String tableName) {
 

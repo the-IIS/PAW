@@ -31,11 +31,11 @@ public class RunAtStart {
     @PostConstruct
     public void runAtStart() {
 
-        TableList table1 = tableListRepository.save(new TableList("TABLE ONE"));
+        TableList table1 = tableListRepository.save(new TableList(1L, "TABLE ONE"));
 
-        CardList list1 = cardListRepository.save(new CardList("WALKING SKELETON", table1));
+        CardList list1 = cardListRepository.save(new CardList(1L, "WALKING SKELETON", table1));
 
-        Card card1 = cardRepository.save(new Card("THE CONNECTION", "IS WORKING", list1));
+        Card card1 = cardRepository.save(new Card(1L, "THE CONNECTION", "IS WORKING", list1));
 
         User userTemp = new User();
         userTemp.setUsername("root");
