@@ -9,19 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class CardService {
 
-  private baseUrl = 'http://localhost:8080/api/cards';
+  private baseUrl = 'http://localhost:8080/api/card/all';
 
   constructor(private httpClient: HttpClient) { }
 
   getCardList(): Observable<Card[]> {
-    return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
-      map(response => response._embedded.cards)
+    return this.httpClient.get<Card[]>(this.baseUrl).pipe(
+      map(response => response)
     );
-  }
-}
-
-interface GetResponse {
-  _embedded: {
-    cards: Card[];
   }
 }

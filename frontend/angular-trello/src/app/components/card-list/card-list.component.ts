@@ -22,6 +22,6 @@ export class CardListComponent implements OnInit {
       data => {
         this.cards = data;
       }
-    )
+    );
   }
 }
