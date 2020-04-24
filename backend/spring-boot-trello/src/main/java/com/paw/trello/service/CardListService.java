@@ -11,7 +11,7 @@ import  java.util.List;
 @Service
 public class CardListService {
 
-    private final CardListRepository cardListRepository;
+    private CardListRepository cardListRepository;
 
     @Autowired
     public CardListService(CardListRepository cardListRepository) {

@@ -23,9 +23,8 @@ public class Card {
     @Column(name = "description")
     private String description;
 
-    @Getter(AccessLevel.NONE)
-    @ManyToOne
-    @JoinColumn(name = "list_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(foreignKey = @ForeignKey(name = "list_id"), name = "list_id", nullable = false)
     private CardList list;
 
 }

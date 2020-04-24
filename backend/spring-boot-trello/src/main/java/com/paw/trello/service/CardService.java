@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class CardService {
 
-    private final CardRepository cardRepository;
+    private CardRepository cardRepository;
 
     @Autowired
     public CardService(CardRepository cardRepository) {

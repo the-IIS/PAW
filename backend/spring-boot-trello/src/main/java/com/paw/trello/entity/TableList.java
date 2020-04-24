@@ -1,5 +1,6 @@
 package com.paw.trello.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class TableList {
     @Column(name = "table_name")
     private String tableName;
 
-    //@Getter(AccessLevel.NONE)     // jak NIE chcesz widzieć kaskadowo, to odkomentuj
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ttable")
     private Set<CardList> ttables;
 
