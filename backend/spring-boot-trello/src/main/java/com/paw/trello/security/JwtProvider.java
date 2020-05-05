@@ -27,12 +27,12 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String jwt) {
-        Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
+        Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
         return true;
     }
 
     public String getUserNameFromJWT(String jwt) {
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
         return claims.getSubject();
     }
 }
