@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginPayload: LoginPayload;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.loginForm = new FormGroup({
       username: new FormControl(),
       password: new FormControl()

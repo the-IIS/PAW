@@ -25,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([
+      // authguard example : {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent}
     ]),
     HttpClientModule
