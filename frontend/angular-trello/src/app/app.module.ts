@@ -10,13 +10,16 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
 import {HttpClientInterceptor} from './http-client-interceptor';
 import { CardService } from './services/card.service';
 import { LoginComponent } from './components/login/login.component';
+import { TableListComponent } from './components/table-list/table-list.component';
+import {AuthGuard} from './auth.guard';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CardListComponent,
-    LoginComponent
+    LoginComponent,
+    TableListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([
-      // authguard example : {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+      {path: 'tableList', component: TableListComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent}
     ]),
     HttpClientModule
