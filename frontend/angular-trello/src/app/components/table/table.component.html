@@ -6,7 +6,7 @@
       <h3 class="p-3 mb-2 bg-primary text-white">{{tmpList.id}} - {{tmpList.listName}}</h3>
       <ng-container *ngIf="cards">
         <ng-container *ngFor="let tmpCards of cards | listId: tmpList.id">
-            <h6 class="p-3 mb-2 bg-light text-dark" *ngIf="tmpCards.list.id === tmpList.id">
+            <h6 class="p-3 mb-2 bg-light text-dark">
               {{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}
             </h6>
         </ng-container>
