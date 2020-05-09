@@ -12,6 +12,7 @@ import { TableListComponent } from './components/table-list/table-list.component
 import {AuthGuard} from './auth.guard';
 import { TableComponent } from './components/table/table.component';
 import {TableService} from "./services/table.service";
+import { ListIdPipe } from './pipes/list-id.pipe';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {TableService} from "./services/table.service";
     AppComponent,
     LoginComponent,
     TableListComponent,
-    TableComponent
+    TableComponent,
+    ListIdPipe
   ],
   imports: [
     BrowserModule,
