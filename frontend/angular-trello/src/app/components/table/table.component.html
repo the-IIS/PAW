@@ -1,14 +1,17 @@
 <ng-container *ngIf="table">
-  <h1>{{table.id}} - {{table.tableName}}</h1>
-  <ng-container *ngIf="cardLists">
-    <ng-container *ngFor="let tmpList of cardLists">
-      <h3>{{tmpList.id}} - {{tmpList.listName}}</h3>
+  <h1 class="p-3 mb-2 bg-dark text-white">{{table.id}} - {{table.tableName}}</h1>
+<div class="container-fluid">
+  <div *ngIf="cardLists" class="row flex-row flex-nowrap">
+    <div class="col-3" *ngFor="let tmpList of cardLists">
+      <h3 class="p-3 mb-2 bg-primary text-white">{{tmpList.id}} - {{tmpList.listName}}</h3>
       <ng-container *ngIf="cards">
         <ng-container *ngFor="let tmpCards of cards">
-          <h6 *ngIf="tmpCards.list.id === tmpList.id">{{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}</h6>
+            <h6 class="p-3 mb-2 bg-light text-dark" *ngIf="tmpCards.list.id === tmpList.id">
+              {{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}
+            </h6>
         </ng-container>
       </ng-container>
-    </ng-container>
-  </ng-container>
+    </div>
+  </div>
+</div>
 </ng-container>
-
