@@ -13,6 +13,7 @@ import {AuthGuard} from './auth.guard';
 import { TableComponent } from './components/table/table.component';
 import {TableService} from "./services/table.service";
 import { ListIdPipe } from './pipes/list-id.pipe';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ListIdPipe } from './pipes/list-id.pipe';
     LoginComponent,
     TableListComponent,
     TableComponent,
-    ListIdPipe
+    ListIdPipe,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { ListIdPipe } from './pipes/list-id.pipe';
     RouterModule.forRoot([
       {path: 'tableList', component: TableListComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent},
-      {path: 'table/:id', component: TableComponent, canActivate: [AuthGuard]}
+      {path: 'table/:id', component: TableComponent, canActivate: [AuthGuard]},
+      {path: 'register', component: RegisterComponent},
     ]),
     HttpClientModule
   ],

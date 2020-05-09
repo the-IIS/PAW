@@ -6,6 +6,7 @@ import {JwtAuthResponse} from '../payloads/JwtAuthResponse';
 import {map} from 'rxjs/operators';
 import {LocalStorageService} from 'ngx-webstorage';
 import {Router} from '@angular/router';
+import {RegisterPayload} from '../payloads/register-payload';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService,  private router: Router) { }
 
+
+  register(registerPayload: RegisterPayload): Observable<any> {
+    return this.httpClient.post(this.url + 'signup', registerPayload);
+  }
 
   login(loginPayload: LoginPayload): Observable<boolean> {
     return this.httpClient.post<JwtAuthResponse>(this.url + 'login', loginPayload).pipe(map(data => {
