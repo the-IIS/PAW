@@ -1,17 +1,19 @@
 package com.paw.trello.service;
 
 import com.paw.trello.dao.CardListRepository;
+import com.paw.trello.entity.Card;
 import com.paw.trello.entity.CardList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import  java.util.List;
+import java.util.Set;
 
 @Service
 public class CardListService {
 
-    private CardListRepository cardListRepository;
+    private final CardListRepository cardListRepository;
 
     @Autowired
     public CardListService(CardListRepository cardListRepository) {
@@ -25,6 +27,10 @@ public class CardListService {
 
     public List<CardList> findAll() {
         return cardListRepository.findAll();
+    }
+
+    public Set<CardList> findAllCardListsFromTable(Long id) {
+        return cardListRepository.findAllByTtable_Id(id);
     }
 
     public CardList save(CardList cardList) {

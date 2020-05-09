@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CardService {
 
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
 
     @Autowired
     public CardService(CardRepository cardRepository) {
@@ -24,6 +25,14 @@ public class CardService {
 
     public Iterable<Card> findAll() {
         return cardRepository.findAll();
+    }
+
+    public Set<Card> findAllCardsFromList(Long id) {
+        return cardRepository.findAllByList_Id(id);
+    }
+
+    public Set<Card> findAllCardsByTable(Long id) {
+        return cardRepository.findAllByList_Ttable_Id(id);
     }
 
     public Card save(Card card) {

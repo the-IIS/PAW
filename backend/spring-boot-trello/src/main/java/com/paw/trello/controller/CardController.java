@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/card")
@@ -29,6 +30,16 @@ public class CardController {
     @GetMapping("/get/{id}")
     public Optional<Card> getById(@PathVariable @RequestBody Long id) {
         return cardService.findById(id);
+    }
+
+    @GetMapping("/get/cardList/{id}")
+    public Set<Card> getByIdd(@PathVariable @RequestBody Long id) {
+        return cardService.findAllCardsFromList(id);
+    }
+
+    @GetMapping("/get/table/{id}")
+    public Set<Card> getByTable(@PathVariable @RequestBody Long id) {
+        return cardService.findAllCardsByTable(id);
     }
 
     @PostMapping
