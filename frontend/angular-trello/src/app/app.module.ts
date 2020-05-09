@@ -12,6 +12,7 @@ import { CardService } from './services/card.service';
 import { LoginComponent } from './components/login/login.component';
 import { TableListComponent } from './components/table-list/table-list.component';
 import {AuthGuard} from './auth.guard';
+import { TableComponent } from './components/table/table.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {AuthGuard} from './auth.guard';
     AppComponent,
     CardListComponent,
     LoginComponent,
-    TableListComponent
+    TableListComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,9 @@ import {AuthGuard} from './auth.guard';
     NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([
       {path: 'tableList', component: TableListComponent, canActivate: [AuthGuard]},
-      {path: 'login', component: LoginComponent}
+      {path: 'card-list', component: CardListComponent, canActivate: [AuthGuard]},
+      {path: 'login', component: LoginComponent},
+      {path: 'table/:id', component: TableComponent, canActivate: [AuthGuard]}
     ]),
     HttpClientModule
   ],
