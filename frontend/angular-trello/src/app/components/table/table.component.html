@@ -1,4 +1,14 @@
 <ng-container *ngIf="table">
   <h1>{{table.id}} - {{table.tableName}}</h1>
+  <ng-container *ngIf="cardLists">
+    <ng-container *ngFor="let tmpList of cardLists">
+      <h3>{{tmpList.id}} - {{tmpList.listName}}</h3>
+      <ng-container *ngIf="cards">
+        <ng-container *ngFor="let tmpCards of cards">
+          <h6 *ngIf="tmpCards.list.id === tmpList.id">{{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}</h6>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
 </ng-container>
 

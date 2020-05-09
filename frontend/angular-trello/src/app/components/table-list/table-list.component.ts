@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CardService } from 'src/app/services/card.service';
-import {Ttable} from '../../common/card';
+import {TableService} from "../../services/table.service";
+import {TablePayload} from "../../payloads/table-payload";
 
 @Component({
   selector: 'app-table-list',
@@ -9,16 +9,16 @@ import {Ttable} from '../../common/card';
 })
 export class TableListComponent implements OnInit {
 
-  tables: Ttable[];
+  tables: TablePayload[];
 
-  constructor(private cardService: CardService) {}
+  constructor(private tableService: TableService) {}
 
   ngOnInit(): void {
     this.listTables();
   }
 
   listTables() {
-    this.cardService.getTableList().subscribe(
+    this.tableService.getTableList().subscribe(
       data => {
         this.tables = data;
       }
