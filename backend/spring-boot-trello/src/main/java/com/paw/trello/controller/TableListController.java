@@ -25,9 +25,9 @@ public class TableListController {
         return tableListService.findAll();
     }
 
-    @GetMapping
-    public Optional<TableList> getById(@RequestParam Long index) {
-        return tableListService.findById(index);
+    @GetMapping("/get/{id}")
+    public Optional<TableList> getById(@PathVariable @RequestBody Long id) {
+        return tableListService.findById(id);
     }
 
     @PostMapping

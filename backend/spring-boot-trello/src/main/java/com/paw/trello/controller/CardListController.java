@@ -25,9 +25,9 @@ public class CardListController {
         return cardListService.findAll();
     }
 
-    @GetMapping
-    public Optional<CardList> getById(@RequestParam Long index) {
-        return cardListService.findById(index);
+    @GetMapping("/get/{id}")
+    public Optional<CardList> getById(@PathVariable @RequestBody Long id) {
+        return cardListService.findById(id);
     }
 
     @PostMapping

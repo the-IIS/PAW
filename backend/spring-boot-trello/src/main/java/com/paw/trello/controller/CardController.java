@@ -1,6 +1,7 @@
 package com.paw.trello.controller;
 
 import com.paw.trello.entity.Card;
+import com.paw.trello.entity.CardList;
 import com.paw.trello.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,9 @@ public class CardController {
         return cardService.findAll();
     }
 
-    @GetMapping
-    public Optional<Card> getById(@RequestParam Long index) {
-        return cardService.findById(index);
+    @GetMapping("/get/{id}")
+    public Optional<Card> getById(@PathVariable @RequestBody Long id) {
+        return cardService.findById(id);
     }
 
     @PostMapping
