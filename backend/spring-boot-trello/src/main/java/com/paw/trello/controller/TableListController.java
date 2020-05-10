@@ -41,6 +41,11 @@ public class TableListController {
         tableListService.deleteById(tableId);
         return new ResponseEntity<>("Table with ID:" + tableId + " deleted successfully", HttpStatus.OK);
     }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<String> deleteTableList(@PathVariable  @RequestBody Long id) {
+//        tableListService.deleteById(id);
+//        return new ResponseEntity<>("Table with ID:" + id + " deleted successfully", HttpStatus.OK);
+//    }
 
     @PutMapping
     public ResponseEntity<TableList> updateTableList(@RequestBody TableList tableList) {
