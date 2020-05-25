@@ -1,8 +1,10 @@
 package com.paw.trello.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="card")
@@ -27,4 +29,15 @@ public class Card {
     @JoinColumn(foreignKey = @ForeignKey(name = "list_id"), name = "list_id", nullable = false)
     private CardList list;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
+    private Set<FileModel> files;
+
+    public Card(Long id, String title, String description, CardList list) {
+
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.list = list;
+    }
 }
