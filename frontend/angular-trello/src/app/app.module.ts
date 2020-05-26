@@ -36,7 +36,7 @@ import { RegisterComponent } from './components/register/register.component';
       {path: 'login', component: LoginComponent},
       {path: 'table/:id', component: TableComponent, canActivate: [AuthGuard]},
       {path: 'register', component: RegisterComponent},
-    ]),
+    ], { onSameUrlNavigation: 'reload' }),
     HttpClientModule
   ],
   providers: [TableService, {provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptor, multi: true}],

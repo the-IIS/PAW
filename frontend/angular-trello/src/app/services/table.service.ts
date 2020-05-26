@@ -29,4 +29,8 @@ export class TableService {
     return this.httpClient.get<CardPayload[]>('http://localhost:8080/api/card/get/table/' + tableId);
   }
 
+  deleteTable(tableId: number): Observable<{}> {
+    return this.httpClient.delete<any>('http://localhost:8080/api/table-list/delete/' + tableId);
+  }
+
 }

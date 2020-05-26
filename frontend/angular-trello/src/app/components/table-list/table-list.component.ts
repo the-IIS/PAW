@@ -42,12 +42,11 @@ export class TableListComponent implements OnInit {
   }
 
   deleteTable(tableId) {
-    // console.log(tableId);
-    // const httpParams = new HttpParams().set('tableId', tableId);
-    // const options = { params: httpParams };
-    // this.http.delete(`http://localhost:8080/api/table-list?tableId=${tableId}`);
-    this.http.delete<any>('http://localhost:8080/api/table-list/delete/20');
-    // this.router.navigateByUrl('/tableList').then(r => true); // TODO add refresh page
+    this.tableService.deleteTable(tableId).subscribe(data => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/tableList').then(r => true);
+    });
   }
 
 }

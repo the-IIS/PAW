@@ -38,16 +38,11 @@ public class TableListController {
         return  new ResponseEntity<>(table, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteTableList(@RequestParam(name = "tableId") Long tableId) {
-        tableListService.deleteById(tableId);
-        return new ResponseEntity<>("Table with ID:" + tableId + " deleted successfully", HttpStatus.OK);
+   @DeleteMapping("/delete/{id}")
+   public ResponseEntity<String> deleteTableList(@PathVariable  @RequestBody Long id) {
+        tableListService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<String> deleteTableList(@PathVariable  @RequestBody Long id) {
-//        tableListService.deleteById(id);
-//        return new ResponseEntity<>("Table with ID:" + id + " deleted successfully", HttpStatus.OK);
-//    }
 
     @PutMapping
     public ResponseEntity<TableList> updateTableList(@RequestBody TableList tableList) {
