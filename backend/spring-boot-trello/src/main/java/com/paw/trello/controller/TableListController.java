@@ -35,7 +35,8 @@ public class TableListController {
 
     @GetMapping("/all")
     public Iterable<TableListDto> getAll() {
-        return tableListService.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return tableListService.findAll(auth);
     }
 
     @GetMapping("/get/{id}")

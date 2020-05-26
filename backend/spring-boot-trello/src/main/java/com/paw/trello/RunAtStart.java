@@ -35,10 +35,14 @@ public class RunAtStart {
         userTemp.setUsername("root");
         userTemp.setPassword("$2a$10$ckaGf3PJJKBXtAw9/FQgceimEaAwRW9eplk2vovhk11j8bZJGip5q");
         User user = userRepository.save(userTemp);
+        User userTemp2 = new User();
+        userTemp2.setUsername("r");
+        userTemp2.setPassword("$2a$10$ckaGf3PJJKBXtAw9/FQgceimEaAwRW9eplk2vovhk11j8bZJGip5q");
+        User user2 = userRepository.save(userTemp2);
 
         TableList table1 = tableListRepository.save(new TableList(1L, "TABLE ONE", user));
         TableList table2 = tableListRepository.save(new TableList(2L, "TABLE TWO", user));
-        TableList table3 = tableListRepository.save(new TableList(3L, "TABLE THREE", user));
+        TableList table3 = tableListRepository.save(new TableList(3L, "TABLE THREE", user2));
 
         CardList list1 = cardListRepository.save(new CardList(1L, "THE LIST 1", table1));
         CardList list2 = cardListRepository.save(new CardList(2L, "THE LIST 2", table2));

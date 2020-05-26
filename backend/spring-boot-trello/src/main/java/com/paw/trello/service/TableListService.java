@@ -1,14 +1,16 @@
 package com.paw.trello.service;
 
 import com.paw.trello.dao.TableListRepository;
+import com.paw.trello.dao.UserRepository;
 import com.paw.trello.dto.TableListDto;
 import com.paw.trello.entity.TableList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,11 +18,13 @@ import static java.util.stream.Collectors.toList;
 public class TableListService {
 
     private final TableListRepository tableListRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TableListService(TableListRepository tableListRepository) {
+    public TableListService(TableListRepository tableListRepository, UserRepository userRepository) {
         super();
         this.tableListRepository = tableListRepository;
+        this.userRepository = userRepository;
     }
 
     public TableListDto findById(Long id) throws TableNotFoundException {
@@ -28,8 +32,8 @@ public class TableListService {
         return mapFromTableListToDto(tableList);
     }
 
-    public Iterable<TableListDto> findAll() {
-        List<TableList> tableLists = tableListRepository.findAll();
+    public Iterable<TableListDto> findAll(Authentication auth) {
+        Set<TableList> tableLists = tableListRepository.getAllByUserId(userRepository.findByUsername(auth.getName()).getId());
         return tableLists.stream().map(this::mapFromTableListToDto).collect(toList());
     }
 
