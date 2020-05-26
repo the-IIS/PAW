@@ -44,6 +44,12 @@ public class TableListController {
         return tableListService.findById(id);
     }
 
+    @PutMapping("/{id}/{name}")
+    public ResponseEntity<String> updateById(@PathVariable @RequestBody Long id, @PathVariable @RequestBody String name) throws TableNotFoundException {
+        tableListService.updateById(id, name);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping("/add/{tablename}")
     public ResponseEntity<TableList> addTableList(@PathVariable @RequestBody String tablename) throws TableNotFoundException {
         TableList table = new TableList();

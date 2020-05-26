@@ -10,6 +10,9 @@
           <h5 class="card-title">{{tmpTable.tableName}}</h5>
           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
           <a href="/table/{{tmpTable.id}}" class="btn btn-primary">Go to {{tmpTable.tableName}}</a>
+          <button type="button" class="btn btn-success" data-toggle="modal" (click)="setTableId(tmpTable.id)" data-target="#updateTableModal">
+            Change name
+          </button>
           <button type="button" class="btn btn-danger" (click)="deleteTable(tmpTable.id)">
             Delete
           </button>
@@ -41,6 +44,31 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="addTable()" data-dismiss="modal" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- update Table Modal -->
+<div class="modal fade" id="updateTableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Zaktualizuj nazwę</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          Name:
+          <input type="text" [formControl]="updateName">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateTable(updateTableId)" data-dismiss="modal" >Save changes</button>
       </div>
     </div>
   </div>

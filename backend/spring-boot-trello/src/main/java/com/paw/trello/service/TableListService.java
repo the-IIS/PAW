@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
@@ -51,5 +50,11 @@ public class TableListService {
         tableListDto.setTableName(tableList.getTableName());
         tableListDto.setUser(tableList.getUser().getUsername());
         return tableListDto;
+    }
+
+    public void updateById(Long id, String name) throws TableNotFoundException {
+        TableList tableList = tableListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak tabeli " + id));
+        tableList.setTableName(name);
+        tableListRepository.save(tableList);
     }
 }

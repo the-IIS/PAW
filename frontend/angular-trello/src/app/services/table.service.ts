@@ -37,4 +37,7 @@ export class TableService {
     return this.httpClient.post<any>('http://localhost:8080/api/table-list/add/' + tableName, null);
   }
 
+  updateTable(tableId: number, tableName: string): Observable<{}> {
+    return this.httpClient.put<any>('http://localhost:8080/api/table-list/' + tableId + '/' + tableName, null);
+  }
 }
