@@ -1,6 +1,8 @@
 package com.paw.trello.controller;
 
+import com.paw.trello.dto.TableListDto;
 import com.paw.trello.entity.TableList;
+import com.paw.trello.exceptions.TableNotFoundException;
 import com.paw.trello.service.TableListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +23,12 @@ public class TableListController {
     }
 
     @GetMapping("/all")
-    public Iterable<TableList> getAll() {
+    public Iterable<TableListDto> getAll() {
         return tableListService.findAll();
     }
 
     @GetMapping("/get/{id}")
-    public Optional<TableList> getById(@PathVariable @RequestBody Long id) {
+    public TableListDto getById(@PathVariable @RequestBody Long id) throws TableNotFoundException {
         return tableListService.findById(id);
     }
 

@@ -31,9 +31,14 @@ public class RunAtStart {
     @PostConstruct
     public void runAtStart() {
 
-        TableList table1 = tableListRepository.save(new TableList(1L, "TABLE ONE"));
-        TableList table2 = tableListRepository.save(new TableList(2L, "TABLE TWO"));
-        TableList table3 = tableListRepository.save(new TableList(3L, "TABLE THREE"));
+        User userTemp = new User();
+        userTemp.setUsername("root");
+        userTemp.setPassword("$2a$10$ckaGf3PJJKBXtAw9/FQgceimEaAwRW9eplk2vovhk11j8bZJGip5q");
+        User user = userRepository.save(userTemp);
+
+        TableList table1 = tableListRepository.save(new TableList(1L, "TABLE ONE", user));
+        TableList table2 = tableListRepository.save(new TableList(2L, "TABLE TWO", user));
+        TableList table3 = tableListRepository.save(new TableList(3L, "TABLE THREE", user));
 
         CardList list1 = cardListRepository.save(new CardList(1L, "THE LIST 1", table1));
         CardList list2 = cardListRepository.save(new CardList(2L, "THE LIST 2", table2));
@@ -46,9 +51,5 @@ public class RunAtStart {
         Card card5 = cardRepository.save(new Card(5L, "THE CARD 5", "IS WORKING!!!!!", list3));
         Card card6 = cardRepository.save(new Card(6L, "THE CARD 6", "IS WORKING!!!!!!", list3));
 
-        User userTemp = new User();
-        userTemp.setUsername("root");
-        userTemp.setPassword("$2a$10$ckaGf3PJJKBXtAw9/FQgceimEaAwRW9eplk2vovhk11j8bZJGip5q");
-        User user = userRepository.save(userTemp);
     }
 }

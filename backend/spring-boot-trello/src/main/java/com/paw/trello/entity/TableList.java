@@ -26,9 +26,14 @@ public class TableList {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ttable")
     private Set<CardList> ttables;
 
-    public TableList(Long id, String tableName) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public TableList(Long id, String tableName, User user) {
 
         this.id = id;
         this.tableName = tableName;
+        this.user = user;
     }
 }

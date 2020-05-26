@@ -1,7 +1,9 @@
 package com.paw.trello.controller;
 
+import com.paw.trello.dto.CardDto;
 import com.paw.trello.entity.Card;
 import com.paw.trello.entity.CardList;
+import com.paw.trello.exceptions.TableNotFoundException;
 import com.paw.trello.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,22 +25,22 @@ public class CardController {
     }
 
     @GetMapping("/all")
-    public Iterable<Card> getAll() {
+    public Iterable<CardDto> getAll() {
         return cardService.findAll();
     }
 
     @GetMapping("/get/{id}")
-    public Optional<Card> getById(@PathVariable @RequestBody Long id) {
+    public CardDto getById(@PathVariable @RequestBody Long id) throws TableNotFoundException {
         return cardService.findById(id);
     }
 
     @GetMapping("/get/cardList/{id}")
-    public Set<Card> getByIdd(@PathVariable @RequestBody Long id) {
+    public Set<CardDto> getByIdd(@PathVariable @RequestBody Long id) {
         return cardService.findAllCardsFromList(id);
     }
 
     @GetMapping("/get/table/{id}")
-    public Set<Card> getByTable(@PathVariable @RequestBody Long id) {
+    public Set<CardDto> getByTable(@PathVariable @RequestBody Long id) {
         return cardService.findAllCardsByTable(id);
     }
 
