@@ -4,12 +4,12 @@ import {TablePayload} from '../payloads/table-payload';
 import {Observable} from 'rxjs';
 import {CardPayload} from '../payloads/card-payload';
 import {CardListPayload} from '../payloads/card-list-payload';
-import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
+  private jsonPost: { table_id: number; listName: string };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,5 +39,13 @@ export class TableService {
 
   updateTable(tableId: number, tableName: string): Observable<{}> {
     return this.httpClient.put<any>('http://localhost:8080/api/table-list/' + tableId + '/' + tableName, null);
+  }
+
+  addList(tableId: number, name: string): Observable<{}> {
+    this.jsonPost = {
+      listName: name,
+      table_id: tableId
+    };
+    return this.httpClient.post<any>('http://localhost:8080/api/card-list/add', this.jsonPost);
   }
 }

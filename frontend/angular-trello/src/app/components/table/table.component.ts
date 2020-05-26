@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TableService} from '../../services/table.service';
 import {TablePayload} from '../../payloads/table-payload';
 import {CardPayload} from '../../payloads/card-payload';
 import {CardListPayload} from '../../payloads/card-list-payload';
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -19,11 +18,14 @@ export class TableComponent implements OnInit {
   cardLists: CardListPayload[];
   cards: CardPayload[];
   permaLink: number;
+  name = new FormControl('');
 
-  constructor(private router: ActivatedRoute, private tableService: TableService, private httpClient: HttpClient) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private tableService: TableService) { }
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
       this.permaLink = params.id;
     });
     this.getTable();
@@ -47,6 +49,15 @@ export class TableComponent implements OnInit {
     }, (error => {
       console.log('Błąd');
     }));
+  }
+
+  addCardList(tableId: number, name: string) {
+    this.tableService.addList(tableId, name).subscribe(data => {
+      this.name.setValue('');
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+    });
   }
 
   getCards(tableId: number) {

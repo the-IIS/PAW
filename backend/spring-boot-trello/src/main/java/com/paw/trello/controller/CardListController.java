@@ -1,6 +1,7 @@
 package com.paw.trello.controller;
 
 import com.paw.trello.dto.CardListDto;
+import com.paw.trello.dto.CardListPost;
 import com.paw.trello.entity.CardList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import com.paw.trello.service.CardListService;
@@ -38,10 +39,10 @@ public class CardListController {
         return cardListService.findAllCardListsFromTable(id);
     }
 
-    @PostMapping
-    public ResponseEntity<CardList> addCardList(@RequestBody CardList cardList) {
-        CardList list = cardListService.save(cardList);
-        return  new ResponseEntity<>(list, HttpStatus.OK);
+    @PostMapping("/add")
+    public ResponseEntity<CardList> addCardList(@RequestBody CardListPost cardList) throws TableNotFoundException {
+        cardListService.add(cardList);
+        return  new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping
@@ -50,10 +51,5 @@ public class CardListController {
         return new ResponseEntity<>("List with ID:" + listId + " deleted successfully", HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<CardList> updateCardList(@RequestBody CardList cardList) {
-        CardList list = cardListService.save(cardList);
-        return  new ResponseEntity<>(list, HttpStatus.OK);
-    }
 }
 
