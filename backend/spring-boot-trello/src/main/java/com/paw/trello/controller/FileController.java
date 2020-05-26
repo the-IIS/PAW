@@ -1,8 +1,7 @@
 package com.paw.trello.controller;
 
-import com.paw.trello.dao.CardRepository;
-import com.paw.trello.dao.FileRepository;
-import com.paw.trello.entity.FileModel;
+import com.paw.trello.dto.FileDto;
+import com.paw.trello.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,38 +14,27 @@ import java.util.List;
 @RequestMapping("/api/file")
 public class FileController {
 
-    @Autowired
-    FileRepository fileRepository;
+    private FileService fileService;
 
     @Autowired
-    CardRepository cardRepository;
-
-    @GetMapping("/all")
-    public List<FileModel> getListFiles() {
-        return fileRepository.findAll();
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
-    @GetMapping()
-    public List<FileModel> getListFilesByCardId(@RequestParam("cardId") String cardId) {
-        return fileRepository.findAllByCard_Id(Long.parseLong(cardId));
+    @GetMapping
+    public List<FileDto> getFiles(@RequestParam("cardId") String cardId) {
+        return fileService.getFiles(Long.parseLong(cardId));
     }
 
     @PostMapping("/upload")
     public String uploadMultipartFile(@RequestParam("file") MultipartFile file,
                                       @RequestParam("cardId") String cardId) {
-        try {
-            FileModel filemodel = new FileModel(file.getOriginalFilename(), file.getContentType(),
-                    file.getBytes(), cardRepository.getOne(Long.parseLong(cardId)));
-            fileRepository.save(filemodel);
-            return "File uploaded successfully! Filename " + file.getOriginalFilename() + " card " + cardId;
-        } catch (  Exception e) {
-            return "FAIL!";
-        }
+        return fileService.uploadMultipartFile(file, cardId);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteFile(@RequestParam(name = "id") Long fileId) {
-        fileRepository.deleteById(fileId);
+        fileService.deleteById(fileId);
         return new ResponseEntity<>("File with ID:" + fileId + " deleted successfully", HttpStatus.OK);
     }
 }
