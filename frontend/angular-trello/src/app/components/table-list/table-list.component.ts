@@ -35,10 +35,11 @@ export class TableListComponent implements OnInit {
   }
 
   addTable() {
-    this.http.post<any>('http://localhost:8080/api/table-list', { 	tableName : this.name.value }).subscribe(data => {
-      this.postId = data.id;
+    this.tableService.addTable(this.name.value).subscribe(data => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/tableList').then(r => true);
     });
-    // this.router.navigateByUrl('/tableList').then(r => true); // TODO add refresh page
   }
 
   deleteTable(tableId) {

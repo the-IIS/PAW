@@ -33,4 +33,8 @@ export class TableService {
     return this.httpClient.delete<any>('http://localhost:8080/api/table-list/delete/' + tableId);
   }
 
+  addTable(tableName: string): Observable<{}> {
+    return this.httpClient.post<any>('http://localhost:8080/api/table-list/add/' + tableName, null);
+  }
+
 }

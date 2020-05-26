@@ -1,25 +1,36 @@
 package com.paw.trello.controller;
 
+import com.paw.trello.dao.UserRepository;
 import com.paw.trello.dto.TableListDto;
 import com.paw.trello.entity.TableList;
+import com.paw.trello.entity.User;
 import com.paw.trello.exceptions.TableNotFoundException;
+import com.paw.trello.service.AuthService;
 import com.paw.trello.service.TableListService;
+import com.paw.trello.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/table-list")
 public class TableListController {
 
     private TableListService tableListService;
+    private AuthService authService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TableListController(TableListService tableListService) {
+    public TableListController(TableListService tableListService, AuthService authService, UserRepository userRepository) {
         this.tableListService = tableListService;
+        this.authService = authService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/all")
@@ -32,10 +43,14 @@ public class TableListController {
         return tableListService.findById(id);
     }
 
-    @PostMapping
-    public ResponseEntity<TableList> addTableList(@RequestBody TableList tableList) {
-        TableList table = tableListService.save(tableList);
-        return  new ResponseEntity<>(table, HttpStatus.OK);
+    @PostMapping("/add/{tablename}")
+    public ResponseEntity<TableList> addTableList(@PathVariable @RequestBody String tablename) throws TableNotFoundException {
+        TableList table = new TableList();
+        table.setTableName(tablename);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        table.setUser(userRepository.findByUsername(auth.getName()));
+        tableListService.save(table);
+        return  new ResponseEntity<>(HttpStatus.OK);
     }
 
    @DeleteMapping("/delete/{id}")
