@@ -31,17 +31,17 @@ public class CardService {
 
     public Iterable<CardDto> findAll() {
         List<Card> cardList = cardRepository.findAll();
-        return cardList.stream().map(this::mapFromTableListToDto).collect(toList());
+        return cardList.stream().map(CardService::mapFromTableListToDto).collect(toList());
     }
 
     public Set<CardDto> findAllCardsFromList(Long id) {
         Set<Card> cardList = cardRepository.findAllByList_Id(id);
-        return cardList.stream().map(this::mapFromTableListToDto).collect(toSet());
+        return cardList.stream().map(CardService::mapFromTableListToDto).collect(toSet());
     }
 
     public Set<CardDto> findAllCardsByTable(Long id) {
         Set<Card> cardList = cardRepository.findAllByList_Ttable_Id(id);
-        return cardList.stream().map(this::mapFromTableListToDto).collect(toSet());
+        return cardList.stream().map(CardService::mapFromTableListToDto).collect(toSet());
     }
 
     public Card save(Card card) {
@@ -52,7 +52,7 @@ public class CardService {
         cardRepository.deleteById(id);
     }
 
-    public CardDto mapFromTableListToDto(Card card) {
+    public static CardDto mapFromTableListToDto(Card card) {
         CardDto cardDto = new CardDto();
         cardDto.setId(card.getId());
         cardDto.setTitle(card.getTitle());
