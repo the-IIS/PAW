@@ -34,7 +34,7 @@ public class CardListController {
         return cardListService.findById(id);
     }
 
-    @PostMapping("/{id}/archive")
+    @GetMapping("/{id}/archive")
     public ResponseEntity<String> archive(@PathVariable @RequestBody Long id) throws TableNotFoundException {
         cardListService.archive(id);
         return new ResponseEntity<>(HttpStatus.OK);

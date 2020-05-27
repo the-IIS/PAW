@@ -50,12 +50,26 @@ export class TableService {
     return this.httpClient.post<any>('http://localhost:8080/api/card-list/add', this.jsonPost);
   }
 
+  archiveCardList(tableId: number): Observable<CardListPayload[]> {
+    return this.httpClient.get<any>('http://localhost:8080/api/card-list/' + tableId + '/archive/');
+  }
+
   addCard(cardList: number, name: string, desc: string): Observable<{}> {
     this.jsonCardPost = {
       cardName: name,
       description: desc,
       cardListId: cardList
     };
+    return this.httpClient.post<any>('http://localhost:8080/api/card/add', this.jsonCardPost);
+  }
+
+  editCard(cardList: number, name: string, desc: string): Observable<{}> {
+    this.jsonCardPost = {
+      cardName: name,
+      description: desc,
+      cardListId: cardList
+    };
+    //TODO
     return this.httpClient.post<any>('http://localhost:8080/api/card/add', this.jsonCardPost);
   }
 }

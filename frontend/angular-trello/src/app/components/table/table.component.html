@@ -8,17 +8,21 @@
 <div class="container-fluid">
   <div *ngIf="cardLists" class="row flex-row flex-nowrap">
     <div class="col-3" *ngFor="let tmpList of cardLists">
-      <h3 class="p-3 mb-2 bg-primary text-white">
-        {{tmpList.listName}}
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCardModal" (click)="cardList = tmpList.id">+</button>
-      </h3>
-      <ng-container *ngIf="cards">
-        <ng-container *ngFor="let tmpCards of cards | listId: tmpList.id">
-            <h6 class="p-3 mb-2 bg-light text-dark">
-              {{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}
-            </h6>
+      <div *ngIf="tmpList.archive === false">
+        <h3 class="p-3 mb-2 bg-primary text-white">
+          {{tmpList.listName}}
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCardModal" (click)="cardList = tmpList.id">+</button>
+          <button type="button" class="btn btn-danger" (click)="archiveCardList(tmpList.id)">-</button>
+        </h3>
+        <ng-container *ngIf="cards">
+          <ng-container *ngFor="let tmpCards of cards | listId: tmpList.id">
+              <h6 class="p-3 mb-2 bg-light text-dark">
+                {{tmpCards.id}} - {{tmpCards.title}} - {{tmpCards.description}}
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editCardModal" (click)="cardList = tmpList.id">Edit</button>
+              </h6>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
   </div>
 </div>
@@ -75,6 +79,35 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="addCard(table.id, cardList, name.value, description.value)" data-dismiss="modal" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit Card Modal -->
+<div class="modal fade" id="editCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edytuj kartę</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          Name:
+          <input type="text" [formControl]="name">
+        </label>
+        <br>
+        <label>
+          Opis:
+          <input type="text" [formControl]="description">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editCard(table.id, cardList, name.value, description.value)" data-dismiss="modal" >Save changes</button>
       </div>
     </div>
   </div>

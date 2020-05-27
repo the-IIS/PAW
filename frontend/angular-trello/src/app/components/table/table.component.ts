@@ -62,8 +62,27 @@ export class TableComponent implements OnInit {
     });
   }
 
+  archiveCardList(tableId: number) {
+    this.tableService.archiveCardList(tableId).subscribe(data => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+    });
+  }
+
   addCard(tableId: number, cardListId: number, name: string, desc: string) {
     this.tableService.addCard(cardListId, name, desc).subscribe(data => {
+      this.name.setValue('');
+      this.description.setValue('');
+      this.cardList = null;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+    });
+  }
+
+  editCard(tableId: number, cardListId: number, name: string, desc: string) {
+    this.tableService.editCard(cardListId, name, desc).subscribe(data => {
       this.name.setValue('');
       this.description.setValue('');
       this.cardList = null;
