@@ -62,11 +62,11 @@ export class TableComponent implements OnInit {
     });
   }
 
-  archiveCardList(tableId: number) {
-    this.tableService.archiveCardList(tableId).subscribe(data => {
+  archiveCardList(ListId: number, TableId: number) {
+    this.tableService.archiveCardList(ListId).subscribe(data => {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
-      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+      this.router.navigateByUrl('/table/' + TableId).then(r => true);
     });
   }
 

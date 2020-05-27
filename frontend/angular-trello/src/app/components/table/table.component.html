@@ -9,10 +9,11 @@
   <div *ngIf="cardLists" class="row flex-row flex-nowrap">
     <div class="col-3" *ngFor="let tmpList of cardLists">
       <div *ngIf="tmpList.archive === false">
+<!--        TODO remove empty spaces after archived lists-->
         <h3 class="p-3 mb-2 bg-primary text-white">
           {{tmpList.listName}}
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCardModal" (click)="cardList = tmpList.id">+</button>
-          <button type="button" class="btn btn-danger" (click)="archiveCardList(tmpList.id)">-</button>
+          <button type="button" class="btn btn-danger" (click)="archiveCardList(tmpList.id, table.id)">-</button>
         </h3>
         <ng-container *ngIf="cards">
           <ng-container *ngFor="let tmpCards of cards | listId: tmpList.id">
@@ -60,7 +61,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Dodaj kartę</h5>
+        <h5 class="modal-title" id="exampleModalLabel2">Dodaj kartę</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -89,7 +90,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edytuj kartę</h5>
+        <h5 class="modal-title" id="exampleModalLabel3">Edytuj kartę</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

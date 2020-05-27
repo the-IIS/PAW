@@ -69,7 +69,7 @@ export class TableService {
       description: desc,
       cardListId: cardList
     };
-    //TODO
-    return this.httpClient.post<any>('http://localhost:8080/api/card/add', this.jsonCardPost);
+    // TODO repair update
+    return this.httpClient.put<any>('http://localhost:8080/api/card/update/' + this.jsonCardPost.cardListId, this.jsonCardPost);
   }
 }
