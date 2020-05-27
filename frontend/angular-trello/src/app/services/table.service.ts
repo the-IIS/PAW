@@ -10,6 +10,7 @@ import {CardListPayload} from '../payloads/card-list-payload';
 })
 export class TableService {
   private jsonPost: { table_id: number; listName: string };
+  private jsonCardPost: { cardName: string, description: string, cardListId: number };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -47,5 +48,14 @@ export class TableService {
       table_id: tableId
     };
     return this.httpClient.post<any>('http://localhost:8080/api/card-list/add', this.jsonPost);
+  }
+
+  addCard(cardList: number, name: string, desc: string): Observable<{}> {
+    this.jsonCardPost = {
+      cardName: name,
+      description: desc,
+      cardListId: cardList
+    };
+    return this.httpClient.post<any>('http://localhost:8080/api/card/add', this.jsonCardPost);
   }
 }

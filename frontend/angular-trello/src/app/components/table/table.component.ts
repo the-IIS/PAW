@@ -19,6 +19,8 @@ export class TableComponent implements OnInit {
   cards: CardPayload[];
   permaLink: number;
   name = new FormControl('');
+  description = new FormControl('');
+  cardList: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -54,6 +56,17 @@ export class TableComponent implements OnInit {
   addCardList(tableId: number, name: string) {
     this.tableService.addList(tableId, name).subscribe(data => {
       this.name.setValue('');
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+    });
+  }
+
+  addCard(tableId: number, cardListId: number, name: string, desc: string) {
+    this.tableService.addCard(cardListId, name, desc).subscribe(data => {
+      this.name.setValue('');
+      this.description.setValue('');
+      this.cardList = null;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigateByUrl('/table/' + tableId).then(r => true);

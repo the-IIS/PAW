@@ -1,8 +1,11 @@
 package com.paw.trello.service;
 
+import com.paw.trello.dao.CardListRepository;
 import com.paw.trello.dao.CardRepository;
 import com.paw.trello.dto.CardDto;
+import com.paw.trello.dto.CardPost;
 import com.paw.trello.entity.Card;
+import com.paw.trello.entity.CardList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +20,13 @@ import static java.util.stream.Collectors.toSet;
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final CardListRepository cardListRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, CardListRepository cardListRepository) {
         super();
         this.cardRepository = cardRepository;
+        this.cardListRepository = cardListRepository;
     }
 
     public CardDto findById(Long id) throws TableNotFoundException {
@@ -50,6 +55,14 @@ public class CardService {
 
     public void deleteById(Long id) {
         cardRepository.deleteById(id);
+    }
+
+    public Card add(CardPost cardPost) throws TableNotFoundException {
+        Card card = new Card();
+        card.setTitle(cardPost.getCardName());
+        card.setDescription(cardPost.getDescription());
+        card.setList(cardListRepository.findById(cardPost.getCardListId()).orElseThrow(() -> new TableNotFoundException("Brak listy")));
+        return cardRepository.save(card);
     }
 
     public static CardDto mapFromTableListToDto(Card card) {
