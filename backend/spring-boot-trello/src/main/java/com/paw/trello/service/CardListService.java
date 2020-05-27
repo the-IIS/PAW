@@ -4,6 +4,8 @@ import com.paw.trello.dao.CardListRepository;
 import com.paw.trello.dao.TableListRepository;
 import com.paw.trello.dto.CardListDto;
 import com.paw.trello.dto.CardListPost;
+import com.paw.trello.dto.CardPost;
+import com.paw.trello.entity.Card;
 import com.paw.trello.entity.CardList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,11 @@ public class CardListService {
         CardList cardList = cardListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak listy"));
         cardList.setArchive(true);
         return cardListRepository.save(cardList);
+    }
+
+    public void update(CardListPost cardListPost, Long id) throws TableNotFoundException {
+        CardList cardList = cardListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak listy "));
+        cardList.setListName(cardListPost.getListName());
+        cardListRepository.save(cardList);
     }
 }

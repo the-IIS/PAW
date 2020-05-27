@@ -11,7 +11,7 @@
       <div *ngIf="tmpList.archive === false">
 <!--        TODO remove empty spaces after archived lists-->
         <h3 class="p-3 mb-2 bg-primary text-white">
-          {{tmpList.listName}}
+          {{tmpList.id}} - {{tmpList.listName}}
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCardModal" (click)="cardList = tmpList.id">+</button>
           <button type="button" class="btn btn-danger" (click)="archiveCardList(tmpList.id, table.id)">-</button>
         </h3>

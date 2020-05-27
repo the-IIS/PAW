@@ -2,6 +2,7 @@ package com.paw.trello.controller;
 
 import com.paw.trello.dto.CardListDto;
 import com.paw.trello.dto.CardListPost;
+import com.paw.trello.dto.CardPost;
 import com.paw.trello.entity.CardList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import com.paw.trello.service.CardListService;
@@ -51,5 +52,10 @@ public class CardListController {
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateCard(@PathVariable @RequestBody Long id, @RequestBody CardListPost cardListPost) throws TableNotFoundException {
+        cardListService.update(cardListPost, id);
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 
