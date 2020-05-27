@@ -6,6 +6,7 @@ import com.paw.trello.dto.CardDto;
 import com.paw.trello.dto.CardPost;
 import com.paw.trello.entity.Card;
 import com.paw.trello.entity.CardList;
+import com.paw.trello.entity.TableList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,13 @@ public class CardService {
         card.setDescription(cardPost.getDescription());
         card.setList(cardListRepository.findById(cardPost.getCardListId()).orElseThrow(() -> new TableNotFoundException("Brak listy")));
         return cardRepository.save(card);
+    }
+
+    public void update(CardPost cardPost, Long id) throws TableNotFoundException {
+        Card card = cardRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak karty "));
+        card.setTitle(cardPost.getCardName());
+        card.setDescription(cardPost.getDescription());
+        cardRepository.save(card);
     }
 
     public static CardDto mapFromTableListToDto(Card card) {

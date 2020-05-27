@@ -52,6 +52,12 @@ public class CardController {
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateCard(@PathVariable @RequestBody Long id, @RequestBody CardPost cardPost) throws TableNotFoundException {
+        cardService.update(cardPost, id);
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping
     public ResponseEntity<String> deleteCard(@RequestParam(name = "cardId") Long cardId) {
         cardService.deleteById(cardId);
