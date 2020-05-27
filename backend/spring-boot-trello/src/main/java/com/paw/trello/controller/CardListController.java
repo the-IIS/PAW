@@ -34,21 +34,21 @@ public class CardListController {
         return cardListService.findById(id);
     }
 
+    @PostMapping("/{id}/archive")
+    public ResponseEntity<String> archive(@PathVariable @RequestBody Long id) throws TableNotFoundException {
+        cardListService.archive(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/get/table/{id}")
     public Set<CardListDto> findAllCardsFromTable(@PathVariable @RequestBody Long id) {
         return cardListService.findAllCardListsFromTable(id);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CardList> addCardList(@RequestBody CardListPost cardList) throws TableNotFoundException {
+    public ResponseEntity<String> addCardList(@RequestBody CardListPost cardList) throws TableNotFoundException {
         cardListService.add(cardList);
         return  new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @DeleteMapping
-    public ResponseEntity<String> deleteCardList(@RequestParam(name = "listId") Long listId) {
-        cardListService.deleteById(listId);
-        return new ResponseEntity<>("List with ID:" + listId + " deleted successfully", HttpStatus.OK);
     }
 
 }

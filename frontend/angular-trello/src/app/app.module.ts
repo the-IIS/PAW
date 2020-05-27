@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TableListComponent } from './components/table-list/table-list.component';
 import {AuthGuard} from './auth.guard';
 import { TableComponent } from './components/table/table.component';
-import {TableService} from "./services/table.service";
+import {TableService} from './services/table.service';
 import { ListIdPipe } from './pipes/list-id.pipe';
 import { RegisterComponent } from './components/register/register.component';
 

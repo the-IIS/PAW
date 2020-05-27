@@ -22,6 +22,9 @@ public class CardList {
     @Column(name = "list_name")
     private String listName;
 
+    @Column(name = "is_archive")
+    private boolean isArchive = false;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(foreignKey = @ForeignKey(name = "ttable_id"), name = "ttable_id", nullable = false)
     private TableList ttable;

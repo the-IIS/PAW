@@ -8,4 +8,5 @@ import lombok.Setter;
 public class CardListDto {
     private Long id;
     private String listName;
+    private boolean archive;
 }

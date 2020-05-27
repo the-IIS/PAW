@@ -50,13 +50,17 @@ public class CardListService {
         return cardListRepository.save(cardList);
     }
 
-    public void deleteById(Long id) {
-        cardListRepository.deleteById(id);
-    }
     public static CardListDto mapFromCardListToDto(CardList cardList) {
         CardListDto cardListDto = new CardListDto();
         cardListDto.setId(cardList.getId());
         cardListDto.setListName(cardList.getListName());
+        cardListDto.setArchive(cardList.isArchive());
         return cardListDto;
+    }
+
+    public CardList archive(Long id) throws TableNotFoundException {
+        CardList cardList = cardListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak listy"));
+        cardList.setArchive(true);
+        return cardListRepository.save(cardList);
     }
 }
