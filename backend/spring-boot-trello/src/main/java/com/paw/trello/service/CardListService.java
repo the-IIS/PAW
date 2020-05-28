@@ -69,6 +69,7 @@ public class CardListService {
     public void update(CardListPost cardListPost, Long id) throws TableNotFoundException {
         CardList cardList = cardListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak listy "));
         cardList.setListName(cardListPost.getListName());
+        //cardList.setTtable(cardListPost.getTable_id());
         cardListRepository.save(cardList);
     }
 }

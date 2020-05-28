@@ -20,6 +20,10 @@ export class TableComponent implements OnInit {
   permaLink: number;
   name = new FormControl('');
   description = new FormControl('');
+  // newTableId = new FormControl( this.table.id); TODO repair passing old table id to default form text field
+  newTableId = new FormControl('');
+  newListName = new FormControl('');
+
   cardList: number;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -56,6 +60,15 @@ export class TableComponent implements OnInit {
   addCardList(tableId: number, name: string) {
     this.tableService.addList(tableId, name).subscribe(data => {
       this.name.setValue('');
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/table/' + tableId).then(r => true);
+    });
+  }
+
+  editCardList(tableId: number, cardListId: number, newListName: string, newTableId: number) {
+    this.tableService.editCardList(cardListId, newListName, newTableId).subscribe(data => {
+      // this.name.setValue('');
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigateByUrl('/table/' + tableId).then(r => true);

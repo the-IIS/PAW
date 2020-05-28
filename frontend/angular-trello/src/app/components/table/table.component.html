@@ -13,6 +13,7 @@
         <h3 class="p-3 mb-2 bg-primary text-white">
           {{tmpList.id}} - {{tmpList.listName}}
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCardModal" (click)="cardList = tmpList.id">+</button>
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editListModal" (click)="cardList = tmpList.id">Edit</button>
           <button type="button" class="btn btn-danger" (click)="archiveCardList(tmpList.id, table.id)">-</button>
         </h3>
         <ng-container *ngIf="cards">
@@ -109,6 +110,36 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="editCard(table.id, cardList, name.value, description.value)" data-dismiss="modal" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit Card List Modal -->
+<div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Edytuj listę</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          new list name:
+          <input type="text" [formControl]="newListName">
+        </label>
+        <br>
+        <label>
+          (optional) new table id:
+          <input type="text" [formControl]="newTableId">
+<!--          TODO changing the table id not working, low priority to repair-->
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editCardList(table.id, cardList, newListName.value, newTableId.value)" data-dismiss="modal" >Save changes</button>
       </div>
     </div>
   </div>
