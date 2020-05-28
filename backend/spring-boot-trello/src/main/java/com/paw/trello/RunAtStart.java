@@ -1,13 +1,7 @@
 package com.paw.trello;
 
-import com.paw.trello.dao.CardListRepository;
-import com.paw.trello.dao.CardRepository;
-import com.paw.trello.dao.TableListRepository;
-import com.paw.trello.dao.UserRepository;
-import com.paw.trello.entity.Card;
-import com.paw.trello.entity.CardList;
-import com.paw.trello.entity.TableList;
-import com.paw.trello.entity.User;
+import com.paw.trello.dao.*;
+import com.paw.trello.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +21,9 @@ public class RunAtStart {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @PostConstruct
     public void runAtStart() {
@@ -55,5 +52,8 @@ public class RunAtStart {
         Card card5 = cardRepository.save(new Card(5L, "THE CARD 5", "IS WORKING!!!!!", list3));
         Card card6 = cardRepository.save(new Card(6L, "THE CARD 6", "IS WORKING!!!!!!", list3));
 
+        FileModel file1 = fileRepository.save(new FileModel(1L, "file1.txt", "text/plain", "testfi 111 letestfi111 letestfile".getBytes(), card1));
+        FileModel file2 = fileRepository.save(new FileModel(2L, "file2.txt", "text/plain", "222 testfiletes222 tfiletestfile".getBytes(), card1));
+        FileModel file3 = fileRepository.save(new FileModel(3L, "file3.txt", "text/plain", "testfil333 etestfiletestfile333".getBytes(), card2));
     }
 }
