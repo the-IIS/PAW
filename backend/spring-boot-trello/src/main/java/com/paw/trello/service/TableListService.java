@@ -8,6 +8,7 @@ import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -49,12 +50,42 @@ public class TableListService {
         tableListDto.setId(tableList.getId());
         tableListDto.setTableName(tableList.getTableName());
         tableListDto.setUser(tableList.getUser().getUsername());
+        tableListDto.setPicName(tableList.getPicName());
+        tableListDto.setMimetype(tableList.getMimetype());
+        tableListDto.setPic(tableList.getPic());
         return tableListDto;
     }
 
     public void updateById(Long id, String name) throws TableNotFoundException {
         TableList tableList = tableListRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak tabeli " + id));
         tableList.setTableName(name);
+        tableListRepository.save(tableList);
+    }
+
+    public String uploadBackgroundPicture(MultipartFile file, String tableId) throws TableNotFoundException {
+
+        try {
+            TableList tableList = tableListRepository.findById(Long.parseLong(tableId))
+                    .orElseThrow(() -> new TableNotFoundException("Brak tabeli " + tableId));
+            tableList.setPicName(file.getOriginalFilename());
+            tableList.setMimetype(file.getContentType());
+            tableList.setPic(file.getBytes());
+            tableListRepository.save(tableList);
+
+            return "File uploaded successfully! Filename " + file.getOriginalFilename() + " table " + tableId;
+
+        } catch (Exception e) {
+            return "FAIL!";
+        }
+    }
+
+    public void deleteBackgroundPicture(Long tableId) throws TableNotFoundException{
+
+        TableList tableList = tableListRepository.findById(tableId)
+                .orElseThrow(() -> new TableNotFoundException("Brak tabeli " + tableId));
+        tableList.setPicName(null);
+        tableList.setMimetype(null);
+        tableList.setPic(null);
         tableListRepository.save(tableList);
     }
 }

@@ -30,6 +30,16 @@ public class TableList {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(name = "picture_name")
+    private String picName;
+
+    @Column(name = "mimetype")
+    private String mimetype;
+
+    @Lob
+    @Column(name = "pic")
+    private byte[] pic;
+
     public TableList(Long id, String tableName, User user) {
 
         this.id = id;

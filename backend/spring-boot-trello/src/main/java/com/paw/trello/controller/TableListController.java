@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -70,5 +71,17 @@ public class TableListController {
     public ResponseEntity<TableList> updateTableList(@RequestBody TableList tableList) {
         TableList table = tableListService.save(tableList);
         return  new ResponseEntity<>(table, HttpStatus.OK);
+    }
+
+    @PostMapping("/background")
+    public String uploadBackground(@RequestParam("file") MultipartFile file,
+                                      @RequestParam("tableId") String tableId) throws TableNotFoundException {
+        return tableListService.uploadBackgroundPicture(file, tableId);
+    }
+
+    @PutMapping("/background")
+    public ResponseEntity<String> deleteBackground(@RequestParam(name = "tableId") Long tableId) throws TableNotFoundException {
+        tableListService.deleteBackgroundPicture(tableId);
+        return  new ResponseEntity<>("Background picture for table: " + tableId + " deleted successfully", HttpStatus.OK);
     }
 }

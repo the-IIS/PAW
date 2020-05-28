@@ -10,5 +10,8 @@ public class TableListDto {
     private long id;
     private String user;
     private String tableName;
+    private String picName;
+    private String mimetype;
+    private byte[] pic;
 }
 
