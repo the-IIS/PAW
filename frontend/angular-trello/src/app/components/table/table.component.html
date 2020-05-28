@@ -7,9 +7,8 @@
   </h1>
 <div class="container-fluid">
   <div *ngIf="cardLists" class="row flex-row flex-nowrap">
-    <div class="col-3" *ngFor="let tmpList of cardLists">
-      <div *ngIf="tmpList.archive === false">
-<!--        TODO remove empty spaces after archived lists-->
+    <ng-container  *ngFor="let tmpList of cardLists">
+      <div class="col-3" *ngIf="tmpList.archive === false">
         <h3 class="p-3 mb-2 bg-primary text-white">
           {{tmpList.id}} - {{tmpList.listName}}
           <button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="'#collapseExample' + tmpList.id" aria-expanded="false" aria-controls="collapseExample">
@@ -32,7 +31,7 @@
           </ng-container>
         </ng-container>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>
 </ng-container>
