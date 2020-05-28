@@ -6,6 +6,7 @@ import {CardPayload} from '../../payloads/card-payload';
 import {CardListPayload} from '../../payloads/card-list-payload';
 import {HttpClient} from '@angular/common/http';
 import {FormControl} from '@angular/forms';
+import {FilePayload} from '../../payloads/file-payload';
 
 @Component({
   selector: 'app-table',
@@ -21,10 +22,11 @@ export class TableComponent implements OnInit {
   name = new FormControl('');
   description = new FormControl('');
   // newTableId = new FormControl( this.table.id); TODO repair passing old table id to default form text field
-  newTableId = new FormControl('');
-  newListName = new FormControl('');
+  newCardTableId = new FormControl('');
+  newCardListName = new FormControl('');
 
   cardList: number;
+  tmpFiles: FilePayload[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -108,6 +110,15 @@ export class TableComponent implements OnInit {
   getCards(tableId: number) {
     this.tableService.getCards(tableId).subscribe((data: CardPayload[]) => {
       this.cards = data;
+    }, (error => {
+      console.log('Błąd');
+    }));
+  }
+
+  getFiles(tableId: number) {
+    this.tableService.getFiles(tableId).subscribe((data: FilePayload[]) => {
+      this.tmpFiles = data;
+      console.log('Długoć listy załączników: ', data.length);
     }, (error => {
       console.log('Błąd');
     }));

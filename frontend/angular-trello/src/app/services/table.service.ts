@@ -4,6 +4,7 @@ import {TablePayload} from '../payloads/table-payload';
 import {Observable} from 'rxjs';
 import {CardPayload} from '../payloads/card-payload';
 import {CardListPayload} from '../payloads/card-list-payload';
+import {FilePayload} from '../payloads/file-payload';
 
 @Injectable({
   providedIn: 'root'
@@ -80,4 +81,9 @@ export class TableService {
     // TODO repair update
     return this.httpClient.put<any>('http://localhost:8080/api/card/update/' + this.jsonCardPost.cardListId, this.jsonCardPost);
   }
+
+  getFiles(cardId: number): Observable<FilePayload[]> {
+    return this.httpClient.get<FilePayload[]>('http://localhost:8080/api/file/?cardId=' + cardId);
+  }
+
 }
