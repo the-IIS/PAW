@@ -2,11 +2,10 @@ package com.paw.trello.service;
 
 import com.paw.trello.dao.CardListRepository;
 import com.paw.trello.dao.CardRepository;
+import com.paw.trello.dto.CardAddPost;
 import com.paw.trello.dto.CardDto;
-import com.paw.trello.dto.CardPost;
+import com.paw.trello.dto.CardUpdatePost;
 import com.paw.trello.entity.Card;
-import com.paw.trello.entity.CardList;
-import com.paw.trello.entity.TableList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +57,7 @@ public class CardService {
         cardRepository.deleteById(id);
     }
 
-    public Card add(CardPost cardPost) throws TableNotFoundException {
+    public Card add(CardAddPost cardPost) throws TableNotFoundException {
         Card card = new Card();
         card.setTitle(cardPost.getCardName());
         card.setDescription(cardPost.getDescription());
@@ -66,10 +65,10 @@ public class CardService {
         return cardRepository.save(card);
     }
 
-    public void update(CardPost cardPost, Long id) throws TableNotFoundException {
-        Card card = cardRepository.findById(id).orElseThrow(() -> new TableNotFoundException("Brak karty "));
-        card.setTitle(cardPost.getCardName());
-        card.setDescription(cardPost.getDescription());
+    public void update(CardUpdatePost cardUpdatePost) throws TableNotFoundException {
+        Card card = cardRepository.findById(cardUpdatePost.getCardId()).orElseThrow(() -> new TableNotFoundException("Brak karty "));
+        card.setTitle(cardUpdatePost.getCardName());
+        card.setDescription(cardUpdatePost.getDescription());
         cardRepository.save(card);
     }
 

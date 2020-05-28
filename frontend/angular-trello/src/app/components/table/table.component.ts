@@ -22,8 +22,7 @@ export class TableComponent implements OnInit {
   permaLink: number;
   name = new FormControl('');
   description = new FormControl('');
-  // newTableId = new FormControl( this.table.id); TODO repair passing old table id to default form text field
-  newCardTableId = new FormControl('');
+  newCardTableId = new FormControl();
   newCardListName = new FormControl('');
 
   cardList: number;
@@ -35,11 +34,10 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.permaLink = params.id;
+      this.newCardTableId.setValue(this.permaLink);
     });
     this.getTable();
   }
-
-
 
   getTable() {
     this.tableService.getTable(this.permaLink).subscribe((data: TablePayload) => {
@@ -97,8 +95,8 @@ export class TableComponent implements OnInit {
     });
   }
 
-  editCard(tableId: number, cardListId: number, name: string, desc: string) {
-    this.tableService.editCard(cardListId, name, desc).subscribe(data => {
+  editCard(tableId: number, cardId: number, name: string, desc: string) {
+    this.tableService.editCard(cardId, name, desc).subscribe(data => {
       this.name.setValue('');
       this.description.setValue('');
       this.cardList = null;

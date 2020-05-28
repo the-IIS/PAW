@@ -11,7 +11,9 @@ import {FilePayload} from '../payloads/file-payload';
 })
 export class TableService {
   private jsonPost: { table_id: number; listName: string };
+  private jsonEditListPost: { table_id: number; listName: string, cardListId: number };
   private jsonCardPost: { cardName: string, description: string, cardListId: number };
+  private jsonCardEditPost: { cardName: string, description: string, cardId: number };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -51,12 +53,13 @@ export class TableService {
     return this.httpClient.post<any>('http://localhost:8080/api/card-list/add', this.jsonPost);
   }
 
-  editCardList(cardListId: number, newListName: string, newTableId: number): Observable<{}> {
-    this.jsonPost = {
+  editCardList(ListId: number, newListName: string, newTableId: number): Observable<{}> {
+    this.jsonEditListPost = {
       listName: newListName,
-      table_id: newTableId
+      table_id: newTableId,
+      cardListId: ListId
     };
-    return this.httpClient.put<any>('http://localhost:8080/api/card-list/update/' + cardListId, this.jsonPost);
+    return this.httpClient.put<any>('http://localhost:8080/api/card-list/update', this.jsonEditListPost);
   }
 
   archiveCardList(tableId: number): Observable<CardListPayload[]> {
@@ -72,14 +75,13 @@ export class TableService {
     return this.httpClient.post<any>('http://localhost:8080/api/card/add', this.jsonCardPost);
   }
 
-  editCard(cardList: number, name: string, desc: string): Observable<{}> {
-    this.jsonCardPost = {
+  editCard(cardEditId: number, name: string, desc: string): Observable<{}> {
+    this.jsonCardEditPost = {
       cardName: name,
       description: desc,
-      cardListId: cardList
+      cardId: cardEditId
     };
-    // TODO repair update
-    return this.httpClient.put<any>('http://localhost:8080/api/card/update/' + this.jsonCardPost.cardListId, this.jsonCardPost);
+    return this.httpClient.put<any>('http://localhost:8080/api/card/update', this.jsonCardEditPost);
   }
 
   getFiles(): Observable<FilePayload[]> {

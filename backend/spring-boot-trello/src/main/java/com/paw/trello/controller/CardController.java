@@ -1,10 +1,9 @@
 package com.paw.trello.controller;
 
+import com.paw.trello.dto.CardAddPost;
 import com.paw.trello.dto.CardDto;
-import com.paw.trello.dto.CardListPost;
-import com.paw.trello.dto.CardPost;
+import com.paw.trello.dto.CardUpdatePost;
 import com.paw.trello.entity.Card;
-import com.paw.trello.entity.CardList;
 import com.paw.trello.exceptions.TableNotFoundException;
 import com.paw.trello.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -47,14 +45,14 @@ public class CardController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addCard(@RequestBody CardPost cardPost) throws TableNotFoundException {
+    public ResponseEntity<String> addCard(@RequestBody CardAddPost cardPost) throws TableNotFoundException {
         cardService.add(cardPost);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateCard(@PathVariable @RequestBody Long id, @RequestBody CardPost cardPost) throws TableNotFoundException {
-        cardService.update(cardPost, id);
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCard(@RequestBody CardUpdatePost cardUpdatePost) throws TableNotFoundException {
+        cardService.update(cardUpdatePost);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 

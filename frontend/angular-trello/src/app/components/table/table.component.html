@@ -31,7 +31,7 @@
                 </button>
                 <div class="collapse" id="{{'collapseCardMenu' + tmpCards.id}}">
                   <div class="card card-body">
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editCardModal" (click)="cardList = tmpList.id">Edit card</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editCardModal" (click)="cardList = tmpCards.id">Edit card</button>
 <!--                    <button type="button" class="btn btn-light" (click)="getFiles(tmpCards.id)">Add attachments</button>-->
 <!--                    <button type="button" class="btn btn-light" >Add Attachments</button>-->
                   </div>
@@ -160,8 +160,7 @@
         <br>
         <label>
           (optional) new table id:
-          <input type="text" [formControl]="newCardTableId">
-<!--          TODO changing the table id not working, low priority to repair-->
+          <input type="number" [formControl]="newCardTableId">
         </label>
       </div>
       <div class="modal-footer">

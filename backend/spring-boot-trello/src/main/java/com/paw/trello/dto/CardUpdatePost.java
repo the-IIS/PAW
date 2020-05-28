@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CardPost {
+public class CardUpdatePost {
     private String cardName;
     private String description;
-    private Long cardListId;
+    private Long cardId;
 }
