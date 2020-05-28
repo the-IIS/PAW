@@ -86,4 +86,7 @@ export class TableService {
     return this.httpClient.get<FilePayload[]>('http://localhost:8080/api/file/all');
   }
 
+  deleteFile(fileId: number) {
+    return this.httpClient.delete('http://localhost:8080/api/file/?id=' + fileId);
+  }
 }

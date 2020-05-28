@@ -33,7 +33,7 @@
                   <div class="card card-body">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editCardModal" (click)="cardList = tmpList.id">Edit card</button>
 <!--                    <button type="button" class="btn btn-light" (click)="getFiles(tmpCards.id)">Add attachments</button>-->
-                    <button type="button" class="btn btn-light" >Add Attachments</button>
+<!--                    <button type="button" class="btn btn-light" >Add Attachments</button>-->
                   </div>
                 </div>
                 <div class="card card-body">
@@ -42,7 +42,9 @@
                 <ng-container *ngIf="files">
                     <ng-container *ngFor="let tmpFile of files">
                       <ng-container *ngIf="tmpFile.card.id == tmpCards.id">
-                        {{tmpFile.name}}<br>
+                        {{tmpFile.name}}
+                        <button type="button" class="btn btn-danger" (click)="deleteFile(table.id, tmpFile.id)">X</button>
+                        <br>
                       </ng-container>
                     </ng-container>
                 </ng-container>

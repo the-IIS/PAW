@@ -125,4 +125,11 @@ export class TableComponent implements OnInit {
     }));
   }
 
+  deleteFile(tableId: number, fileId: number) {
+    this.tableService.deleteFile(fileId).subscribe();
+    this.getFiles();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigateByUrl('/table/' + tableId).then(r => true);
+  }
 }
