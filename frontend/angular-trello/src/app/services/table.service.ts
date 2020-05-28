@@ -82,8 +82,8 @@ export class TableService {
     return this.httpClient.put<any>('http://localhost:8080/api/card/update/' + this.jsonCardPost.cardListId, this.jsonCardPost);
   }
 
-  getFiles(cardId: number): Observable<FilePayload[]> {
-    return this.httpClient.get<FilePayload[]>('http://localhost:8080/api/file/?cardId=' + cardId);
+  getFiles(): Observable<FilePayload[]> {
+    return this.httpClient.get<FilePayload[]>('http://localhost:8080/api/file/all');
   }
 
 }

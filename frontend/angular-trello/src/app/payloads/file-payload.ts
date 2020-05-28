@@ -6,5 +6,5 @@ export class FilePayload {
   name: string;
   mimetype: string;
   pic: string;
-  list: CardPayload;
+  card: CardPayload;
 }

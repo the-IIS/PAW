@@ -26,6 +26,11 @@ public class FileController {
         return fileService.getFiles(Long.parseLong(cardId));
     }
 
+    @GetMapping("/all")
+    public List<FileDto> getAllFiles() {
+        return fileService.getAllFiles();
+    }
+
     @PostMapping("/upload")
     public String uploadMultipartFile(@RequestParam("file") MultipartFile file,
                                       @RequestParam("cardId") String cardId) {

@@ -39,14 +39,12 @@
                 <div class="card card-body">
                   {{tmpCards.description}}
                 </div>
-<!--                {{getFiles(tmpCards.id)}} todo repair infinite loop in attachments-->
-                <ng-container *ngIf="tmpFiles">
-                  <h4>Attachments:</h4>
-                  <div class="card card-body">
-                    <ng-container *ngFor="let tmpFile of tmpFiles">
-                      {{tmpFile.name}}<br>
+                <ng-container *ngIf="files">
+                    <ng-container *ngFor="let tmpFile of files">
+                      <ng-container *ngIf="tmpFile.card.id == tmpCards.id">
+                        {{tmpFile.name}}<br>
+                      </ng-container>
                     </ng-container>
-                  </div>
                 </ng-container>
               </h6>
           </ng-container>

@@ -29,6 +29,11 @@ public class FileService {
         return files.stream().map(this::mapFromFileToDto).collect(Collectors.toList());
     }
 
+    public List <FileDto> getAllFiles() {
+        List<FileModel> files = fileRepository.findAll();
+        return files.stream().map(this::mapFromFileToDto).collect(Collectors.toList());
+    }
+
     public String uploadMultipartFile(MultipartFile file, String cardId) {
 
         try {

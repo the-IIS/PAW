@@ -18,6 +18,7 @@ export class TableComponent implements OnInit {
   table: TablePayload;
   cardLists: CardListPayload[];
   cards: CardPayload[];
+  files: FilePayload[];
   permaLink: number;
   name = new FormControl('');
   description = new FormControl('');
@@ -26,7 +27,6 @@ export class TableComponent implements OnInit {
   newCardListName = new FormControl('');
 
   cardList: number;
-  tmpFiles: FilePayload[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -46,6 +46,7 @@ export class TableComponent implements OnInit {
       this.table = data;
       this.getCardLists(this.table.id);
       this.getCards(this.table.id);
+      this.getFiles();
     }, (error => {
       console.log('Błąd');
     }));
@@ -115,9 +116,9 @@ export class TableComponent implements OnInit {
     }));
   }
 
-  getFiles(tableId: number) {
-    this.tableService.getFiles(tableId).subscribe((data: FilePayload[]) => {
-      this.tmpFiles = data;
+  getFiles() {
+    this.tableService.getFiles().subscribe((data: FilePayload[]) => {
+      this.files = data;
       console.log('Długoć listy załączników: ', data.length);
     }, (error => {
       console.log('Błąd');
