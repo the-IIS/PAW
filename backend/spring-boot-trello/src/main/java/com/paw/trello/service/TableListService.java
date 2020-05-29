@@ -67,12 +67,15 @@ public class TableListService {
         try {
             TableList tableList = tableListRepository.findById(Long.parseLong(tableId))
                     .orElseThrow(() -> new TableNotFoundException("Brak tabeli " + tableId));
+
+            if(!(file.getContentType().contains("image"))) {
+                return "Only an image file can be uploaded as a background!";
+            } else {
             tableList.setPicName(file.getOriginalFilename());
             tableList.setMimetype(file.getContentType());
             tableList.setPic(file.getBytes());
             tableListRepository.save(tableList);
-
-            return "File uploaded successfully! Filename " + file.getOriginalFilename() + " table " + tableId;
+            return "File uploaded successfully! Filename " + file.getOriginalFilename() + " table " + tableId; }
 
         } catch (Exception e) {
             return "FAIL!";
